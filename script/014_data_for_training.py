@@ -18,8 +18,13 @@ drop_columns = ['item_id', 'item_brand_id', 'item_city_id',
 
 concat = train.append(test)
 
-concat_features = pd.read_pickle('../features/concat_time_diff_features.p').reset_index()
-concat = concat.merge(concat_features, how='left', on='instance_id')
+concat_features1 = pd.read_pickle('../features/concat_time_diff_features.p').reset_index()
+concat_features2 = pd.read_pickle('../features/oneshot_proba.p').reset_index()
+concat_features3 = pd.read_pickle('../features/match_and_diff.p').reset_index()
+
+concat = concat.merge(concat_features1, how='left', on='instance_id')
+concat = concat.merge(concat_features2, how='left', on='instance_id')
+concat = concat.merge(concat_features3, how='left', on='instance_id')
 
 mask = (concat.context_date_day == 24)
 valid_y = concat.loc[mask, 'is_trade'].reset_index(drop=True).copy()

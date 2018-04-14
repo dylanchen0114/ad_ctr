@@ -78,7 +78,7 @@ feature_importance.to_csv('../feat_importance_with_leak.csv', index=False)
 
 res = '%s,%s,%d,%s,%.4f,%d,%d,%d,%.4f,%.4f,%d,%.4e,%.4e,%.4e,%.4e,%.4e,%s,%.5f,%.5f\n' % \
           (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-           'with_three_prev_time_diff', feat_cnt, params['boosting_type'],
+           'with_prev_time_diff_one_shot_level_diff', feat_cnt, params['boosting_type'],
            params['learning_rate'], params['num_leaves'], params['max_depth'],
            params['min_data_in_leaf'], params['feature_fraction'], params['bagging_fraction'],
            params['bagging_freq'], params['lambda_l1'], params['lambda_l2'], params['min_gain_to_split'],
