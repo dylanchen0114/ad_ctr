@@ -18,15 +18,17 @@ drop_columns = ['item_id', 'item_brand_id', 'item_city_id',
 
 concat = train.append(test)
 
+concat_features = pd.read_pickle('../features/concat_time_diff_features.p').reset_index()
+concat = concat.merge(concat_features, how='left', on='instance_id')
 
-mask = (train.context_date_day == 24)
-valid_y = train.loc[mask, 'is_trade'].reset_index(drop=True).copy()
-valid_x = train.loc[mask].drop(['instance_id'] + drop_columns, axis=1).\
+mask = (concat.context_date_day == 24)
+valid_y = concat.loc[mask, 'is_trade'].reset_index(drop=True).copy()
+valid_x = concat.loc[mask].drop(['instance_id'] + drop_columns, axis=1).\
     reset_index(drop=True).copy()
 
-mask = (train.context_date_day > 18) & (train.context_date_day < 24)
-train_y = train.loc[mask, 'is_trade'].reset_index(drop=True).copy()
-train_x = train.loc[mask].drop(['instance_id'] + drop_columns, axis=1).\
+mask = (concat.context_date_day > 18) & (concat.context_date_day < 24)
+train_y = concat.loc[mask, 'is_trade'].reset_index(drop=True).copy()
+train_x = concat.loc[mask].drop(['instance_id'] + drop_columns, axis=1).\
     reset_index(drop=True).copy()
 
 mask = (concat.context_date_day == 25)

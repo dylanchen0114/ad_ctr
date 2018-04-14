@@ -23,7 +23,7 @@ valid_data = lgb.Dataset(valid_x, label=valid_y, reference=train_data)
 feat_cnt = train_x.shape[1]
 print('total features: ', feat_cnt)
 
-embedding_features = ['user_gender_id', 'user_occupation_id', 'user_age_level']
+embedding_features = ['user_gender_id']
 
 for col in embedding_features:
     train_x[col] = train_x[col].astype('category')
@@ -41,7 +41,7 @@ params = {
 
     'num_leaves': 100,
     'max_depth': 12,
-    'min_data_in_leaf': 1000,
+    'min_data_in_leaf': 200,
 
     'feature_fraction': 0.7,
     'bagging_fraction': 0.6,
@@ -78,7 +78,7 @@ feature_importance.to_csv('../feat_importance_with_leak.csv', index=False)
 
 res = '%s,%s,%d,%s,%.4f,%d,%d,%d,%.4f,%.4f,%d,%.4e,%.4e,%.4e,%.4e,%.4e,%s,%.5f,%.5f\n' % \
           (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-           'LightGBM_with_leak', feat_cnt, params['boosting_type'],
+           'with_three_prev_time_diff', feat_cnt, params['boosting_type'],
            params['learning_rate'], params['num_leaves'], params['max_depth'],
            params['min_data_in_leaf'], params['feature_fraction'], params['bagging_fraction'],
            params['bagging_freq'], params['lambda_l1'], params['lambda_l2'], params['min_gain_to_split'],
