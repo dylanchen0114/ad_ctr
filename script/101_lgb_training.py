@@ -21,7 +21,7 @@ test_x.drop('instance_id', axis=1, inplace=True)
 
 train_data = lgb.Dataset(train_x, label=train_y)
 
-embedding_features = ['user_gender_id', 'user_occupation_id', 'user_age_level']
+embedding_features = ['user_gender_id']
 
 for col in embedding_features:
     train_x[col] = train_x[col].astype('category')
@@ -42,7 +42,7 @@ params = {
 
     'num_leaves': 100,
     'max_depth': 12,
-    'min_data_in_leaf': 1000,
+    'min_data_in_leaf': 200,
 
     'feature_fraction': 0.7,
     'bagging_fraction': 0.6,
@@ -57,7 +57,7 @@ params = {
     'is_training_metric': 'True'
 }
 
-num_rounds = 369
+num_rounds = 399
 
 gbm = lgb.train(params, train_data, num_boost_round=num_rounds, valid_sets=[train_data],
                 early_stopping_rounds=250, verbose_eval=50)
@@ -75,4 +75,4 @@ feature_importance.to_csv('../full_train_feat_importance_with_leak.csv', index=F
 pred_test = gbm.predict(test_x)
 test_sub = pd.DataFrame({'instance_id': test_id, 'predicted_score': pred_test})
 
-test_sub.to_csv('../lgb_%.5f_logloss_leak.txt' % trn_loss, index=False, sep=' ', line_terminator='\n')
+test_sub.to_csv('../lgb_%.5f_logloss_one_shot_level_diff.txt' % trn_loss, index=False, sep=' ', line_terminator='\n')
