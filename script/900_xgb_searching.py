@@ -53,8 +53,8 @@ best_round = np.argmin(evals_result['valid']['logloss'])
 val_loss = evals_result['valid']['logloss'][best_round]
 trn_loss = evals_result['train']['logloss'][best_round]
 
-record = "{timestamp}, {eta}, {max_depth}, {min_child_weight}, {gamma}, {best_round},{trn_loss},{val_loss}".\
+record = "{timestamp}, {eta}, {max_depth}, {min_child_weight}, {gamma}, {best_round},{trn_loss},{val_loss}\n".\
 format(timestamp=datetime.now().strftime('%m/%d %H:%M'), eta=params['eta'], min_child_weight=params['min_child_weight'], max_depth=params['max_depth'], gamma=params['gamma'], best_round=best_round, val_loss=val_loss, trn_loss=trn_loss)
 
-with open('../train_log/train_log.csv', 'a') as f:
+with open('{}/train_log.csv'.format(out_dir), 'a') as f:
     f.write(record)

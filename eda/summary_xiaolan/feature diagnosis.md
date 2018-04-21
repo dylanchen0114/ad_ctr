@@ -47,10 +47,6 @@ _(cumulative)_
 
 #### Match-diff
 
-
-
-#### Inarow
-
 | Feature name                                       | Mode   | Comments                                  | Reject/ accept |
 | :------------------------------------------------- | :----- | ----------------------------------------- | -------------- |
 | user_age_level_group_shop_id_item_price_level_diff | global | Strong signal; try rolling and cumulative | Accept         |

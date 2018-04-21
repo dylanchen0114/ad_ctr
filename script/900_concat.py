@@ -16,9 +16,11 @@ drop_columns = ['item_id', 'item_brand_id', 'item_city_id',
 
 concat = train.append(test)
 
-feature_list = ['concat_time_diff_features.p',
-                'oneshot_proba.p',
-                'match_and_diff.p']
+feature_list = [
+    'concat_time_diff_features.p',
+    'oneshot_proba.p',
+    'shop_smooth.p'
+                ]
 
 concat_features = [pd.read_pickle('../features/{}'.format(p)).reset_index() for p in feature_list]
 
